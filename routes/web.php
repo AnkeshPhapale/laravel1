@@ -14,5 +14,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::get('/greets/{name?}', function ($name) {
+    return view('actions.greets',['name'=> $name]);
+})->name('greets');
+
+Route::get('/hug/{name?}', function ($name=null) {
+    return view('actions.hug',['name'=> $name]);
+})->name('hug');
+
+Route::get('/kiss/{name?}', function ($name) {
+    return view('actions.kiss',['name'=> $name]);
+})->name('kiss');
