@@ -5,10 +5,27 @@
 
 
 
-<a href="{{ route('hug')}}">Hug</a>
-<a href="{{ route('kiss')}}">kissed</a>
-<a href="{{ route('greets')}}">Greet</a>
-</div>
+        <a href="{{ route('hug')}}">Hug</a>
+        <a href="{{ route('kiss')}}">kissed</a>
+        <a href="{{ route('greets')}}">Greet</a>
+
+        <br>
+    <form action="{{ route('donenice')}}" method="POST">
+            <label for="select-option">I want to</label>
+            <select id="select-option" name="action">
+                <option value="greet">Greet</option>
+                <option value="hug">Hug</option>
+                <option value="kiss">Kiss</option>
+
+1            </select>
+
+        <input type="text" name="name"/>
+        <button type="submit">submit</button>
+            <input type="hidden"  value="{{ Session::token()}}"  name="_token">
+
+        </form>
+
+    </div>
 @endsection
 
 
