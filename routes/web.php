@@ -13,33 +13,55 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
 
-Route::get('/greets/{name?}', function ($name) {
-    return view('actions.greets',['name'=> $name]);
-})->name('greets');
 
-Route::get('/hug/{name?}', function ($name) {
-    return view('actions.hug',['name'=> $name]);
-})->name('hug');
-
-Route::get('/kiss/{name?}', function ($name) {
-    return view('actions.kiss',['name'=> $name]);
-})->name('kiss');
-
-Route::post('/donenice', function (\Illuminate\Http\Request $request) {
-
-    if(isset($request['action']) && $request['name'])   {
-
-        if(strlen($request['name'])>0) {
-
-            return view('actions.donenice',['action' => $request['action'],'name'=>$request['name']]);
-        }
+Route::group(['middleware' => ['web']], function () {
     
-       
-       }
+
+    Route::get('/', function () {
+        return view('home');
+    })->name('home');
     
-  return redirect()->back();
-})->name('donenice');
+    
+        //controlllers
+     Route::group(['prefix' => 'do'], function () {
+         Route::get('/{action}/{name?}',[
+    
+            'uses' => 'NiceActionController@getNiceAction',
+            'as' =>'niceaction'
+    
+         ]);
+     
+        
+        Route::post('/',[
+    
+            'uses' => 'NiceActionController@postNiceAction',
+            'as' => 'donenice'
+    
+    
+        ]); 
+        
+    });
+    
+});
+
+
+
+
+
+
+
+
+
+
+// Route::group(['prefix' => 'do'], function () {
+//     Route::get('/greets/{name?}', function ($name) {
+//         return view('actions.greets',['name'=> $name]);
+//     })->name('greets');
+// Route::get('/hug/{name?}', function ($name) {
+//     return view('actions.hug',['name'=> $name]);
+// })->name('hug');
+
+// Route::get('/kiss/{name?}', function ($name) {
+//     return view('actions.kiss',['name'=> $name]);
+// })->name('kiss');

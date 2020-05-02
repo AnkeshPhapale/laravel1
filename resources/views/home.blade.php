@@ -5,11 +5,27 @@
 
 
 
-        <a href="{{ route('hug')}}">Hug</a>
-        <a href="{{ route('kiss')}}">kissed</a>
-        <a href="{{ route('greets')}}">Greet</a>
+        <a href="{{ route('niceaction',['action' => 'hug'])}}">Hug</a>
+        <a href="{{ route('niceaction',['action' => 'kiss'])}}">kissed</a>
+        <a href="{{ route('niceaction',['action' => 'greets'])}}">Greet</a>
+
 
         <br>
+       @if(count($errors)>0)
+    <div>
+        <ul>
+        @foreach($errors -> all() as $error)
+        {{$error}}
+
+        @endforeach
+
+        </ul>
+
+    </div>
+
+       @endif
+
+
     <form action="{{ route('donenice')}}" method="POST">
             <label for="select-option">I want to</label>
             <select id="select-option" name="action">
